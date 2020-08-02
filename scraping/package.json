@@ -1,0 +1,19 @@
+{
+  "name": "scraping",
+  "version": "1.0.0",
+  "description": "## Objetivo Extrair estados e cidades da pagina da [Caixa Económica](http://www.caixa.gov.br/atendimento/Paginas/encontre-a-caixa.aspx), utilizando o \"Tipo de atendimento\" como Lotéricas.",
+  "main": "index.js",
+  "dependencies": {
+    "puppeteer": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/puppeteer": "^3.0.1",
+    "typescript": "^3.9.7",
+    "ts-node-dev": "^1.0.0-pre.56"
+  },
+  "scripts": {
+    "start": "ts-node-dev --transpile-only --respawn --ignore-watch node_modules src/app.ts"
+  },
+  "author": "",
+  "license": "ISC"
+}

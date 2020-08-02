@@ -1,7 +1,7 @@
 version: '3'
 services: 
     scraping:
-        image: node:12.18.3
+        image: jorgelba/node-puppeteer
         volumes: 
             - ./scraping:/scraping
-        command: bash -c "cd /api && npm i && npm start"
+        command: bash -c "cd /scraping && npm i && npm start"

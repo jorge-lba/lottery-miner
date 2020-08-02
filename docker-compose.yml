@@ -1,0 +1,7 @@
+version: '3'
+services: 
+    scrapping:
+        image: node:12.18.3
+        volumes: 
+            - ./scrapping:/scrapping
+        command: bash -c "cd /api && npm i && npm start"

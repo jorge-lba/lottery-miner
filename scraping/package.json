@@ -4,6 +4,7 @@
   "description": "## Objetivo Extrair estados e cidades da pagina da [Caixa Económica](http://www.caixa.gov.br/atendimento/Paginas/encontre-a-caixa.aspx), utilizando o \"Tipo de atendimento\" como Lotéricas.",
   "main": "index.js",
   "dependencies": {
+    "pending-xhr-puppeteer": "^2.3.2",
     "puppeteer": "^5.2.1"
   },
   "devDependencies": {

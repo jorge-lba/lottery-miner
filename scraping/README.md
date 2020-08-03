@@ -5,8 +5,8 @@ Extrair estados e cidades da pagina da [Caixa Económica](http://www.caixa.gov.b
 
 ## Funcionalidades
 
-- [ ] Acessar a URL
-- [ ] Selecionar Lotéricas no campo Tipo de atendimento
-- [ ] Selecionar o estado no campo UF
-- [ ] Extrair as cidades do campo Cidade e adicionar em um array
+- [x] Acessar a URL
+- [x] Selecionar Lotéricas no campo Tipo de atendimento
+- [x] Selecionar o estado no campo UF
+- [x] Extrair as cidades do campo Cidade e adicionar em um array
 - [ ] Cadastrar Estado e Cidades em um banco de dados

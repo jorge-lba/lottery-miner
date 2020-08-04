@@ -4,13 +4,15 @@
   "description": "## Objetivo Extrair estados e cidades da pagina da [Caixa Económica](http://www.caixa.gov.br/atendimento/Paginas/encontre-a-caixa.aspx), utilizando o \"Tipo de atendimento\" como Lotéricas.",
   "main": "index.js",
   "dependencies": {
+    "mongoose": "^5.9.27",
     "pending-xhr-puppeteer": "^2.3.2",
     "puppeteer": "^5.2.1"
   },
   "devDependencies": {
+    "@types/mongoose": "^5.7.34",
     "@types/puppeteer": "^3.0.1",
-    "typescript": "^3.9.7",
-    "ts-node-dev": "^1.0.0-pre.56"
+    "ts-node-dev": "^1.0.0-pre.56",
+    "typescript": "^3.9.7"
   },
   "scripts": {
     "start": "ts-node-dev --transpile-only --respawn --ignore-watch node_modules src/app.ts"

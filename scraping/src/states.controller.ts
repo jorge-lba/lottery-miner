@@ -13,3 +13,5 @@ async function create(stateData:any){
     const state = await States.create(stateData)
     return state
 }
+
+export { index, create }

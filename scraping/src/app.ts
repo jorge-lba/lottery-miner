@@ -1,5 +1,12 @@
 import { launch, Page } from 'puppeteer'
 import { PendingXHR } from 'pending-xhr-puppeteer'
+import {config} from 'dotenv'
+import mongoose from 'mongoose'
+import * as States from './states.controller'
+
+config()
+
+mongoose.connect(process.env.DATABASE_URL)
 
 type OptionsScraping = {
     selectorType:string
@@ -78,12 +85,16 @@ async function webScraping(url:string, path?:string){
             UF
         }, page, pendingXHR)
 
+        await States.create({
+            state:UF,
+            citys
+        })
+
         result.push({
             uf:UF,
             citys
         })          
     }
-    console.log(result[5])
     await browser.close()
 
     return

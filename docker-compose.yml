@@ -4,4 +4,12 @@ services:
         image: jorgelba/node-puppeteer
         volumes: 
             - ./scraping:/scraping
-        command: bash -c "cd /scraping && npm i && npm start"
+        command: bash -c "cd /scraping && npm i" # && npm start
+    DB:
+        image: mongo:3.6
+        ports: 
+          - 27017:27017
+        volumes: 
+          # Altere o caminho do volume para uma pasta existente.
+          # Caso não queira salvar os dados remova todas as linhas do volumes.
+          - /media/jorge/rahmai/omegacom/softwares/volumes:/data/db

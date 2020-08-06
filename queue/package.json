@@ -9,6 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "typescript": "^3.9.7"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0"
   }
 }

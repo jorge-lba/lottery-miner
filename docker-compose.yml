@@ -13,3 +13,12 @@ services:
           # Altere o caminho do volume para uma pasta existente.
           # Caso não queira salvar os dados remova todas as linhas do volumes.
           - /media/jorge/rahmai/omegacom/softwares/volumes:/data/db
+    queue:
+      image: node:12.18.3
+      volumes:
+        - ./queue:/queue
+      command: bash -c "cd /queue && npm i"
+    redis:
+      image: redis:6-alpine
+      ports: 
+        - 6379:6379

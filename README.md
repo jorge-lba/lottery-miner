@@ -6,8 +6,8 @@ Extrair dados cadastrais de lotéricas da pagina [Caixa Económica Federal](http
 
 ## Desenvolvimento:
 - [ ] Web Scrapping - Estado Cidade
-    - [ ] Extrair dados
-    - [ ] Enviar para Banco de Dados - Estado/Cidade
+    - [X] Extrair dados
+    - [X] Enviar para Banco de Dados - Estado/Cidade
     - [ ] Enviar para a Fila
 - [ ] Worker Scrapping - Lotéricas
     - [ ] Extrair dados

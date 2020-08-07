@@ -6,7 +6,6 @@ const States = mongoose.model('State', StateSchema)
 
 async function index(){
     const states = await States.find()
-    console.log(states)
     return states
 }
 

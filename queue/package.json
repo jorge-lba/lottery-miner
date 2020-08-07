@@ -4,19 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "ts-node-dev --transpile-only --respawn --ignore-watch node_modules src/app.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "mongoose": "^5.9.27",
-    "typescript": "^3.9.7"
+    "mongoose": "^5.9.27"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/mongoose": "^5.7.34",
     "@types/node": "^14.0.27",
-    "ts-node-dev": "^1.0.0-pre.56"
+    "ts-node-dev": "^1.0.0-pre.56",
+    "typescript": "^3.9.7"
   }
 }

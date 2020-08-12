@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose'
 
-const LoterrySchema = new Schema({
+const LotterySchema = new Schema({
     name:String, 
     street:String, 
     neighborhood:String, 
@@ -10,3 +10,5 @@ const LoterrySchema = new Schema({
     phone:String, 
     agencyNumber:String 
 })
+
+export { LotterySchema }

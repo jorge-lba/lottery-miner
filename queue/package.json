@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node-dev --transpile-only --respawn --ignore-watch node_modules src/app.ts",
-    "dev:queue":"ts-node-dev --transpile-only --respawn --ignore-watch node_modules src/queue.exec.ts"
+    "dev:queue": "ts-node-dev --transpile-only --respawn --ignore-watch node_modules src/queue.exec.ts"
   },
   "author": "",
   "license": "ISC",

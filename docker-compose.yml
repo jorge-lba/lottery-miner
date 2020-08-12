@@ -5,6 +5,8 @@ services:
         volumes: 
             - ./scraping:/scraping
         command: bash -c "cd /scraping && npm i" # && npm start
+        network_mode: host
+
     DB:
         image: mongo:3.6
         ports: 
@@ -13,12 +15,31 @@ services:
           # Altere o caminho do volume para uma pasta existente.
           # Caso não queira salvar os dados remova todas as linhas do volumes.
           - /media/jorge/rahmai/omegacom/softwares/volumes:/data/db
-    queue:
-      image: node:12.18.3
-      volumes:
-        - ./queue:/queue
-      command: bash -c "cd /queue && npm i"
+        network_mode: host
+
     redis:
-      image: redis:6-alpine
-      ports: 
-        - 6379:6379
+        image: redis:6-alpine
+        ports: 
+          - 6379:6379
+        network_mode: host
+
+    queue:
+        image: node:12.18.3
+        volumes:
+          - ./queue:/queue
+        command: bash -c "cd /queue && npm i && npm start"
+        depends_on: 
+          - redis
+          - DB
+        network_mode: host
+
+    # worker:
+    #     image: jorgelba/node-puppeteer
+    #     volumes: 
+    #       - ./worker:/worker
+    #     command: bash -c "cd /worker && npm i && npm start"
+    #     depends_on: 
+    #       - DB
+    #       - redis
+    #       - queue
+    #     network_mode: host

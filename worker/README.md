@@ -11,16 +11,16 @@ O Worker deve fazer as raspagem da página para extrair os dados de cadastro das
     - [x] Selecionar cidade
     - [x] Clicar em buscar
     - [x] Tirar um print da página inteira (teste)
-- [ ] Extrair dados de cada lotérica em um Array
-- [ ] Filtrar dados do array de lotéricas
-    - [ ] Nome
-    - [ ] Rua
-    - [ ] Bairro
-    - [ ] CEP
-    - [ ] Cidade
-    - [ ] UF
-    - [ ] Telefone
-    - [ ] Numero da Agência
+- [x] Extrair dados de cada lotérica em um Array
+- [x] Filtrar dados do array de lotéricas
+    - [x] Nome
+    - [x] Rua
+    - [x] Bairro
+    - [x] CEP
+    - [x] Cidade
+    - [x] UF
+    - [x] Telefone
+    - [x] Numero da Agência
 - [ ] Cadastrar lotéricas individualmente no Banco de Dados ( MongoDB )
     - [ ] Criar um Schema
     - [ ] Conexão

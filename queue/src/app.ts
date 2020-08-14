@@ -15,10 +15,8 @@ mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTo
 async function app(){
     const result:StateData[] = Object.assign(await States.index())
     for(const element of result){
-       for(const city of element.citys){
-           console.log(element.state, " - ", city)
-           await Queue.add({uf:element.state, city})
-       }
+        console.log(element.state, " - ", element.citys.length, 'cidades')
+        await Queue.add(element)
     }
 }
 

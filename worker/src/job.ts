@@ -69,6 +69,7 @@ async function scraping(url:string, dataState){
     console.log('Pagina iniciada')
 
     await page.goto(url)
+    await page.waitForFunction(() => true)
     await page.select(selectOption, '2')
     await pendingXHR.waitForAllXhrFinished()
     await sleep(getRandomArbitrary(100,300))
@@ -80,39 +81,80 @@ async function scraping(url:string, dataState){
 
     for(const city of dataState.citys){
 
-        await page.select(selectCity, city)
-        await page.waitForFunction(() => true)
-        await pendingXHR.waitForAllXhrFinished()
-        await sleep(getRandomArbitrary(100,300))
-
-        await page.click(buttonSearch)
-        await page.waitForFunction(() => true)
-        await pendingXHR.waitForAllXhrFinished()
-        await sleep(getRandomArbitrary(300,600))
-
-        const arrayLottery = await page.evaluate( () => {
-            const notLotteryMsg = 'Nenhum ponto de atendimento foi localizado com os dados informados.'
-
-            const selectH4:any = document.querySelectorAll('h4')
-            if(selectH4[0]?.innerText === notLotteryMsg) return '----- Não há Lotericas ----'
-            if(!selectH4[0]?.innerText) return 'ERROR'
-
-            const lottery:any = document.querySelectorAll('div.resultado-busca-item')
-            const arrayLottery = [ ...lottery ].map(element => element.innerText)
-            return arrayLottery
-        } )
+        let replay = false
+        do{
+            try {
+                await page.select(selectCity, city)
+                await page.waitForFunction(() => true)
+                await pendingXHR.waitForAllXhrFinished()
+                await sleep(getRandomArbitrary(200,400))
         
-        if(arrayLottery === 'ERROR'){
-            console.log(arrayLottery)
-        }else if(arrayLottery === '----- Não há Lotericas ----'){
-            console.log('----- Não há Lotericas ----')
-        }else{
-            const lottery = arrayLottery.map(element => formatData(element))
-            for(const item of lottery){
-                await Lottery.create(item)
-                console.log( city, ' ', item.name)
+                await page.click(buttonSearch)
+                await pendingXHR.waitForAllXhrFinished()
+                await page.waitForFunction(() => true)
+                await sleep(getRandomArbitrary(300,600))
+
+                const arrayLottery = await page.evaluate( () => {
+                    const notLotteryMsg = 'Nenhum ponto de atendimento foi localizado com os dados informados.'
+        
+                    const selectH4:any = document.querySelectorAll('h4')
+
+                    if(selectH4[0]?.innerText === notLotteryMsg){
+                        return '----- Não há Lotericas ----'
+                    }else if(selectH4.length >= 1){
+                                
+                        const lottery:any = document.querySelectorAll('div.resultado-busca-item')
+                        const arrayLottery = [ ...lottery ].map(element => element.innerText)
+                        return arrayLottery
+                    }else if(!selectH4[0]?.innerText){
+                            return 'ERROR'
+                    }
+                } )
+    
+                if(arrayLottery === 'ERROR'){
+                    replay = true
+                    console.log(arrayLottery)
+                    
+                    await page.reload()
+                    await page.goto(url)
+                    await page.waitForFunction(() => true)
+                    await page.select(selectOption, '2')
+                    await pendingXHR.waitForAllXhrFinished()
+                    await sleep(getRandomArbitrary(100,300))
+
+                    await page.select(selectState, dataState.state)
+                    await page.waitForFunction(() => true)
+                    await pendingXHR.waitForAllXhrFinished()
+                    await sleep(getRandomArbitrary(100,300))
+                }else if(arrayLottery === '----- Não há Lotericas ----'){
+                    replay = false
+                    console.log('----- Não há Lotericas ----')
+                }else{
+                    replay = false
+                    const lottery = arrayLottery.map(element => formatData(element))
+                    for(const item of lottery){
+                        await Lottery.create(item)
+                        console.log( dataState.state, ' ', city, ' ', item.name)
+                    }
+                } 
+            } catch (error) {
+                console.log(error)
+                console.log( '--- Reload ---' )
+                replay = true
+                
+                await page.goto(url)
+                await page.waitForFunction(() => true)
+                await page.select(selectOption, '2')
+                await pendingXHR.waitForAllXhrFinished()
+                await sleep(getRandomArbitrary(100,300))
+
+                await page.select(selectState, dataState.state)
+                await page.waitForFunction(() => true)
+                await pendingXHR.waitForAllXhrFinished()
+                await sleep(getRandomArbitrary(100,300))
             }
-        }
+            
+        }while(replay)
 
     }
     await page.close()
@@ -135,12 +177,3 @@ export default {
         mongoose.disconnect()
     }
 }
-
-// const dataState = {
-//     uf: 'AC',
-//     citys: ["ACRELANDIA", "ASSIS BRASIL", "AVELINO CHAVES", "BRASILEIA", "BUJARI", "CAMPINAS", "CAPIXABA", "CRUZEIRO DO SUL", "DIMPOLIS", "EPITACIOLANDIA", "FEIJO", "FRANCISCO CONDE", "HUGO CARNEIRO", "IRACEMA", "JOAO CANCIO", "JORDAO", "LEONCIO RODRIGUES", "MANCIO LIMA", "MANOEL URBANO", "MARECHAL THAUMATURGO", "MARIO LOBAO", "PLACIDO DE CASTRO", "PORTO ACRE", "PORTO WALTER", "RIO BRANCO", "RODRIGUES ALVES", "SANTA ROSA DO PURUS", "SENA MADUREIRA", "SENADOR GUIOMARD", "TARAUACA", "XAPURI"]
-// }
-
-// scraping('http://www.caixa.gov.br/atendimento/Paginas/encontre-a-caixa.aspx', dataState)
-
-// Erro - Re fazer o cadastro das lotéricas de MG - RS
